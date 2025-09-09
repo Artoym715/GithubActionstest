@@ -1,0 +1,26 @@
+name: Second Workflow 🚀
+on: [push]
+
+jobs:
+  Fist-Job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This is the second workflow running on a ${{ runner.os }} server hosted by GitHub!"
+      - name: Check out repository code
+        uses: actions/checkout@v5
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "This job's status is ${{ job.status }}."
+  Second-Job:
+    runs-on: windows-latest
+    steps:
+      - name: Display Node.js version
+        run: node --version
+  Third-Job:
+    runs-on: macos-latest
+    needs: Second-Job
+    steps:
+      - name: Display Python version
+        run: python3 --version
